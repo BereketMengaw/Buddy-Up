@@ -1,0 +1,34 @@
+/*home page main body*/
+
+body {
+  background-image: url(../images/home-4.webp);
+  /*background-repeat: no-repeat;*/
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+img.intro-img {
+  width: 34px;
+  height: 34px;
+}
+
+/*The Main content*/
+
+.top-intro {
+  color: azure;
+  size: 400px;
+  font-family: "Dancing Script", cursive;
+}
+
+.yellow-text {
+  color: yellow;
+}
+
+label {
+  font-family: "Dancing Script", cursive;
+}
+
+.stylish {
+  font-family: "Dancing Script", cursive;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buddy Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Spline+Sans:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!--The Top section -->
+
+    <div class="d-flex justify-content-center">
+      <div class="top-intro text-center text-success display-1">
+        Hello friend
+      </div>
+    </div>
+
+    <div class="letKnow d-flex justify-content-center display-3 text-danger">
+      Fill the next form
+    </div>
+
+    <!--end of Top section -->
+
+    <!--Form section -->
+    <div class="questions text-center display-6 yellow-text">
+      <form action="">
+        <div class="eachQue py-3">
+          <label for="name">NAME:</label>
+          <input type="text" placeholder="Bereket Mengaw" />
+        </div>
+
+        <div class="eachQue py-3">
+          <label for="age">AGE : </label>
+          <input
+            type="number"
+            name="age"
+            maxlength="2"
+            min="0"
+            placeholder="23"
+          />
+        </div>
+
+        <div class="eachQue py-3">
+          <label for="Place">PLACE:</label>
+          <input type="text" placeholder="shegar city" />
+        </div>
+
+        <div class="eachQue py-3">
+          <label for="Comment">Comment:</label>
+          <input
+            type="text"
+            placeholder="you are doing great! "
+            name="Comment"
+          />
+        </div>
+      </form>
+      <!-- End ofform -->
+    </div>
+    <!--submit button-->
+    <div class="submit-btn text-center justify-content-center">
+      <button>Submit</button>
+    </div>
+    <!--end of submit button-->
+    <script src="./javascript/form.js"></script>
+    <script src="./javascript/index.js"></script>
+  </body>
+</html>
