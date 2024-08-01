@@ -1,14 +1,10 @@
-// TO INSTALL THE BASIC MODULES
-
 const express = require("express");
 const mysql = require("mysql2");
 
-// TO SETUP THE APPLICATION FOR THE SERVER CONNECTION
-
+// SETUP THE APPLICATION FOR THE SERVER CONNECTION
 const app = express();
 
 // DATABASE PARAMETERS
-
 const dbConfig = {
   user: "BUDDY-UP",
   password: "BUDDY-UP-2024@JULy",
@@ -16,68 +12,103 @@ const dbConfig = {
   database: "BUDDY-UP",
 };
 
-//MAKING CONNECTION TO THE DATABASE
-
+// MAKING CONNECTION TO THE DATABASE
 const mysqlConnection = mysql.createConnection(dbConfig);
 
-//ACTIVATION OF THE CONNECTION
-
+// ACTIVATION OF THE CONNECTION
 mysqlConnection.connect(function (err) {
   if (err) {
-    //this will help to trace the location of where the problem is located
     console.log("this error is from :" + err.stack);
     return;
   }
-
-  //the message will be sent if the connection is completed to the terminal
   console.log("connected in good way!");
 });
 
-//SENDING REQUEST DATA TO SERVER AND SERVER HANDING USING THE SERVER APPLICATION ALREADY CREATED
+// SENDING REQUEST DATA TO SERVER AND SERVER HANDLING USING THE SERVER APPLICATION ALREADY CREATED
 
-//GET REQUEST TO GET THE RETURN OF 'Hello , World' AS PLACE HOLDER
-
+// GET REQUEST TO GET THE RETURN OF 'Hello, World' AS PLACE HOLDER
 app.get("/", (req, res) => {
-  //IT DEFINES THE RESULT
   res.send("Hello, World!");
 });
 
-// DATA BASE RELATED CODES
+// DATABASE RELATED CODES
 
-//CREATING OF THE DATABASE
-
-// AFTER THE REQUEST OF USING GET METHOD TO ./create-table page ' THE SERVER EXCUTES THE QUERY GIVEN
+// CREATING THE DATABASE
 app.get("/create-table", (req, res) => {
-  //THE QUERY THAT WILL BE USED NEXT TIME
+  const createNameTable = `CREATE TABLE IF NOT EXISTS names(
+    name_id INT AUTO_INCREMENT PRIMARY KEY,
+    column1 VARCHAR(255) NOT NULL
+  );`;
 
-  const createTableQuery = `CREATE TABLE IF NOT EXISTS your_table_name (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  column1 VARCHAR(255),
-  column2 TEXT,
-  column3 DATE
-);
- `;
+  const createAgeTable = `CREATE TABLE IF NOT EXISTS age (
+    age_id int auto_increment,
+    name_id int(11),
+    age int(11) not null,
+    PRIMARY KEY (age_id),
+    FOREIGN KEY (name_id) REFERENCES names(name_id)
+  );`;
 
-  //USING THE QUERY DEFINED ABOVE WE EXCUTE THE CODE DUE TO OUR CONNECTION TO THE DATABASE
+  const createPlaceTable = `CREATE TABLE IF NOT EXISTS places (
+    place_id int auto_increment,
+    name_id int(11),
+    place VARCHAR(255) not null,
+    PRIMARY KEY (place_id),
+    FOREIGN KEY (name_id) REFERENCES names(name_id)
+  );`;
 
-  mysqlConnection.query(createTableQuery, (err, result) => {
+  const createCommentTable = `CREATE TABLE IF NOT EXISTS comments (
+    comment_id int auto_increment,
+    name_id int(11),
+    comment TEXT not null,
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (name_id) REFERENCES names(name_id)
+  );`;
+
+  mysqlConnection.query(createNameTable, (err, result) => {
     if (err) {
       console.error("Error creating table:", err);
-      //THIS WILL DESPLAYED ON THE BROWSER
       res.status(500).send("Internal server error");
-    } else {
-      res.send("Table created successfully");
+      return;
     }
+    console.log("Names table created successfully");
   });
+
+  mysqlConnection.query(createAgeTable, (err, result) => {
+    if (err) {
+      console.log("Error creating the age table:", err);
+      res.status(500).send("Internal server error");
+      return;
+    }
+    console.log("Age table created successfully");
+  });
+
+  mysqlConnection.query(createPlaceTable, (err, result) => {
+    if (err) {
+      console.log("Error creating the place table:", err);
+      res.status(500).send("Internal server error");
+      return;
+    }
+    console.log("Place table created successfully");
+  });
+
+  mysqlConnection.query(createCommentTable, (err, result) => {
+    if (err) {
+      console.log("Error creating the comment table:", err);
+      res.status(500).send("Internal server error");
+      return;
+    }
+    console.log("Comment table created successfully");
+  });
+
+  res.send("Tables creation process initiated");
 });
 
-// USING OUR SERVER APPLICATION WE ARRAGE OUR LISTENER TO THE PORT 3004
-
-app.listen(3004, (err) => {
+// USING OUR SERVER APPLICATION WE ARRANGE OUR LISTENER TO THE PORT 3006
+app.listen(3006, (err) => {
   if (err) {
     console.error("Error starting server:", err);
     process.exit(1);
   } else {
-    console.log("Server listening on port 3004");
+    console.log("Server listening on port 3006");
   }
 });
